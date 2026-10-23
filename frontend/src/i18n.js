@@ -1,7 +1,7 @@
 // Kiosk UI dictionary — the language comes from Timeclock Settings via
 // get_kiosk_config (backend error messages follow the kiosk user's language
 // through frappe's own translation layer instead).
-export const LOCALES = { de: "de-DE", en: "en-GB" }
+export const LOCALES = { de: "de-DE", en: "en-GB", es: "es-CO" }
 
 export const MESSAGES = {
 	de: {
@@ -57,5 +57,32 @@ export const MESSAGES = {
 		server_unreachable: "Server not reachable — please try again in a moment.",
 		offline_title: "No connection to the server",
 		offline_hint: "Clocking in is not possible right now. The terminal keeps retrying automatically.",
+	},
+	es: {
+		badge_prompt: "Acerca tu carné a la cámara",
+		scanning: "Leyendo …",
+		scanner_ready: "Escáner listo",
+		scanner_down_title: "Escáner de carné no disponible",
+		scanner_down_hint: "Marca abajo eligiendo tu nombre + PIN e informa al administrador.",
+		without_badge: "Marcar sin carné",
+		back: "Atrás",
+		choose_employee: "Elige tu nombre",
+		loading_employees: "Cargando empleados …",
+		connection_error: "Sin conexión o sin permiso.",
+		connection_hint: "Inicia sesión con el usuario del kiosco y recarga la página.",
+		since: "desde",
+		clock_in: "Entrada",
+		clock_out: "Salida",
+		cancel: "Cancelar",
+		came: "Entrada registrada",
+		left: "Salida registrada",
+		time_suffix: "",
+		saved: "La hora se registró correctamente",
+		undo: "Deshacer",
+		undone: "Anulado.",
+		error_fallback: "Error — inténtalo de nuevo",
+		server_unreachable: "Servidor no disponible — inténtalo de nuevo en un momento.",
+		offline_title: "Sin conexión con el servidor",
+		offline_hint: "Ahora no se puede marcar. El terminal sigue reintentando automáticamente.",
 	},
 }

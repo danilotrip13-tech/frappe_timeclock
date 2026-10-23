@@ -33,12 +33,12 @@
    "label": "Play Sounds on Kiosk"
   },
   {
-   "default": "de",
+   "default": "es",
    "description": "Language of the kiosk UI (labels, dates, confirmation screen). Backend error messages follow the kiosk user's language.",
    "fieldname": "kiosk_language",
    "fieldtype": "Select",
    "label": "Kiosk Language",
-   "options": "de\nen"
+   "options": "es\nde\nen"
   },
   {
    "fieldname": "kiosk_device_section",

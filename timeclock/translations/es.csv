@@ -1,0 +1,12 @@
+Employee is not enabled for the time clock,El empleado no está habilitado para el reloj de marcación
+Invalid log type,Tipo de marcación no válido
+Kiosk Auto-Login Token must be at least 20 characters long,El token de inicio automático del kiosco debe tener al menos 20 caracteres
+Missing badge,Falta el carné
+No PIN is set for this employee. Please contact HR.,Este empleado no tiene PIN asignado. Contacta a Recursos Humanos.
+The kiosk auto-login user must not be a System Manager,El usuario de inicio automático del kiosco no puede ser System Manager
+The kiosk auto-login user needs the Timeclock Kiosk role,El usuario de inicio automático del kiosco necesita el rol Timeclock Kiosk
+Too many unknown badges. Please wait a minute and try again.,Demasiados carnés desconocidos. Espera un minuto e inténtalo de nuevo.
+Too many wrong attempts. Please wait a minute and try again.,Demasiados intentos fallidos. Espera un minuto e inténtalo de nuevo.
+Undo window has expired,El tiempo para deshacer ha expirado
+Unknown badge,Carné desconocido
+Wrong PIN,PIN incorrecto

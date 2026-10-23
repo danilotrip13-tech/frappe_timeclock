@@ -98,7 +98,7 @@ class TestTimeclockApi(IntegrationTestCase):
 		config = api.get_kiosk_config()
 		self.assertIn("show_camera_preview", config)
 		self.assertIn("play_sounds", config)
-		self.assertIn(config["language"], ("de", "en"))
+		self.assertIn(config["language"], ("es", "de", "en"))
 		# server_time drives the kiosk clock sync — must parse as a datetime
 		self.assertIn("server_time", config)
 		frappe.utils.get_datetime(config["server_time"])

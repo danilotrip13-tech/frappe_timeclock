@@ -221,9 +221,9 @@ const kioskConfig = createResource({ url: "timeclock.api.get_kiosk_config" })
 const showPreview = computed(() => Boolean(kioskConfig.data?.show_camera_preview))
 const soundsEnabled = computed(() => Boolean(kioskConfig.data?.play_sounds))
 
-const lang = computed(() => (kioskConfig.data?.language === "en" ? "en" : "de"))
+const lang = computed(() => (kioskConfig.data?.language in MESSAGES ? kioskConfig.data.language : "es"))
 const locale = computed(() => LOCALES[lang.value])
-const t = (key) => MESSAGES[lang.value]?.[key] ?? MESSAGES.de[key] ?? key
+const t = (key) => MESSAGES[lang.value]?.[key] ?? MESSAGES.es[key] ?? key
 
 // The displayed clock is coupled to the SERVER clock (punch timestamps are
 // server-side — the display must never disagree with what gets recorded).
