@@ -1,6 +1,7 @@
 import json
 
 import frappe
+from frappe import _
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 KIOSK_ROLE = "Timeclock Kiosk"
@@ -163,16 +164,20 @@ NUMBER_CARDS = [
 DASHBOARD_CHART = "Timeclock Arbeitsstunden"
 WHOISIN_BLOCK = "Timeclock Who's In"
 
+# Static block HTML is not run through the translator — the visible texts are
+# filled in by the script with __() so they follow each viewer's language.
 WHOISIN_HTML = """<div class="tc-whoisin">
-	<div class="tc-title">Wer ist da</div>
-	<div class="tc-board"><div class="tc-empty">Lade …</div></div>
+	<div class="tc-title"></div>
+	<div class="tc-board"><div class="tc-empty"></div></div>
 </div>"""
 
-WHOISIN_SCRIPT = """frappe.call({ method: "timeclock.dashboard.get_present_board" }).then((r) => {
+WHOISIN_SCRIPT = """root_element.querySelector(".tc-title").textContent = __("Who's in");
+root_element.querySelector(".tc-empty").textContent = __("Loading …");
+frappe.call({ method: "timeclock.dashboard.get_present_board" }).then((r) => {
 	const rows = r.message || [];
 	const board = root_element.querySelector(".tc-board");
 	if (!rows.length) {
-		board.innerHTML = "<div class='tc-empty'>Niemand eingestempelt</div>";
+		board.innerHTML = `<div class='tc-empty'>${frappe.utils.escape_html(__("Nobody clocked in"))}</div>`;
 		return;
 	}
 	board.innerHTML = rows
@@ -180,7 +185,7 @@ WHOISIN_SCRIPT = """frappe.call({ method: "timeclock.dashboard.get_present_board
 			(x) =>
 				`<div class="tc-row"><span class="tc-dot"></span><span class="tc-name">${frappe.utils.escape_html(
 					x.employee_name
-				)}</span><span class="tc-meta">seit ${x.since}${
+				)}</span><span class="tc-meta">${__("since {0}", [x.since])}${
 					x.device ? " · " + frappe.utils.escape_html(x.device) : ""
 				}</span></div>`
 		)
@@ -269,6 +274,10 @@ WORKSPACE_SHORTCUTS = [
 ]
 
 
+def _system_language():
+	return frappe.db.get_single_value("System Settings", "language") or "en"
+
+
 def _ensure_workspace():
 	"""Admin workspace (settings + employee/PIN/badge management), restricted via
 	workspace roles — regular employees never see it. Idempotent on migrate.
@@ -281,11 +290,14 @@ def _ensure_workspace():
 	is what frappe auto-exports on save under developer_mode (modules/utils.py
 	export_module_json). Migrate imports it first, then this function rewrites the
 	doc from the constants above. Edit the Python; the JSON follows on the next save."""
+	# header blocks are raw HTML (never passed through __()), so the title is
+	# rendered once per migrate in the site's system language
+	header = frappe.utils.escape_html(_(WORKSPACE, lang=_system_language()))
 	content = [
 		{
 			"id": "tcHeader",
 			"type": "header",
-			"data": {"text": "<span class='h4'><b>Timeclock</b></span>", "col": 12},
+			"data": {"text": f"<span class='h4'><b>{header}</b></span>", "col": 12},
 		}
 	]
 	for i, card in enumerate(NUMBER_CARDS):
